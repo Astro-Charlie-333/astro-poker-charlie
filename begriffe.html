@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Begriffe · Poker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --filz:#0E211A; --filz2:#163024; --filz3:#1D3B2D; --gold:#D9B45B; --gold2:#F0D79A;
+ --creme:#F2EDE1; --leise:#9AA79B; --linie:rgba(217,180,91,.22);
+ --rot:#C2413A; --blau:#4E86A8; --gruen:#6FA86A;
+ --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--filz);color:var(--creme);font-family:var(--sans);font-size:16px;line-height:1.6;
+ background-image:radial-gradient(circle at 15% -5%,rgba(217,180,91,.08),transparent 50%),
+  radial-gradient(circle at 88% 22%,rgba(78,134,168,.06),transparent 45%);background-attachment:fixed;}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px 90px;}
+a{color:var(--gold);}
+
+/* Kopfleiste */
+.bar{position:sticky;top:0;z-index:50;background:rgba(14,33,26,.9);backdrop-filter:blur(10px);
+ border-bottom:1px solid var(--linie);}
+.bar-in{max-width:960px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.logo{font-family:var(--serif);font-size:18px;color:var(--creme);text-decoration:none;white-space:nowrap;}
+.logo span{color:var(--rot);}
+.nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap;}
+.nav a{font-size:13.5px;color:var(--leise);text-decoration:none;padding:8px 12px;border-radius:14px;}
+.nav a:hover{color:var(--creme);background:rgba(255,255,255,.05);}
+.nav a.ist{background:var(--gold);color:var(--filz);font-weight:500;}
+@media(max-width:700px){.nav a{padding:6px 9px;font-size:12.5px;}}
+
+h1{font-family:var(--serif);font-size:clamp(32px,6.5vw,54px);font-weight:300;line-height:1.03;
+ letter-spacing:-.025em;margin:0 0 12px;}
+h1 em{font-style:italic;color:var(--gold);}
+h2{font-family:var(--serif);font-size:clamp(23px,4.2vw,31px);font-weight:400;color:var(--gold);
+ margin:50px 0 6px;letter-spacing:-.01em;}
+h3{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--gold2);margin:0 0 8px;}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+ color:var(--gold);margin-bottom:10px;}
+.lede{font-size:17px;color:var(--leise);max-width:60ch;line-height:1.65;margin:0 0 26px;}
+.sub{font-size:14.5px;color:var(--leise);margin:0 0 18px;line-height:1.6;}
+p{margin:0 0 13px;}
+.kopf{padding:52px 0 34px;}
+
+.karte{background:var(--filz2);border:1px solid var(--linie);border-radius:20px;padding:22px 24px;margin-bottom:13px;}
+.karte.gold{border-color:rgba(217,180,91,.5);box-shadow:0 0 28px rgba(217,180,91,.06) inset;}
+
+/* Spielkarten */
+.hand{display:flex;gap:5px;flex-wrap:wrap;}
+.sk{width:42px;height:60px;border-radius:6px;background:linear-gradient(170deg,#FFFDF8,#F0E9DC);
+ color:#1A1A1A;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ font-family:var(--mono);font-weight:700;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.35);flex:none;}
+.sk.gr{width:52px;height:74px;}
+.sk .rk{font-size:17px;} .sk.gr .rk{font-size:21px;}
+.sk .su{font-size:15px;margin-top:3px;} .sk.gr .su{font-size:19px;margin-top:4px;}
+.sk.r{color:#C2413A;}
+.sk.leer{background:repeating-linear-gradient(45deg,#1D3B2D,#1D3B2D 5px,#163024 5px,#163024 10px);
+ border:1px solid var(--linie);}
+
+/* Ranking */
+.rk-z{display:grid;grid-template-columns:44px 1fr;gap:15px;background:var(--filz2);
+ border:1px solid var(--linie);border-radius:17px;padding:16px 18px;margin-bottom:9px;align-items:center;}
+.rk-z .pl{width:36px;height:36px;border-radius:11px;background:var(--gold);color:var(--filz);
+ display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:17px;font-weight:600;}
+.rk-z.schwach .pl{background:rgba(217,180,91,.3);color:var(--gold2);}
+.rk-nm{font-family:var(--serif);font-size:19px;color:var(--creme);}
+.rk-er{font-size:13.8px;color:var(--leise);line-height:1.5;margin-top:2px;}
+.rk-oben{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+.rk-quote{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--gold);
+ background:rgba(217,180,91,.1);border-radius:10px;padding:5px 10px;white-space:nowrap;}
+.rk-karten{margin-top:10px;}
+
+/* Fakten */
+.fakten{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:11px;margin:18px 0;}
+.f{background:var(--filz2);border:1px solid var(--linie);border-radius:17px;padding:18px 20px;text-align:center;}
+.f .z{font-family:var(--serif);font-size:34px;color:var(--gold2);line-height:1;}
+.f .t{font-size:13.8px;color:var(--leise);line-height:1.5;margin-top:9px;}
+
+/* Begriffe */
+.bg{background:var(--filz2);border:1px solid var(--linie);border-radius:18px;margin-bottom:10px;overflow:hidden;}
+.bg summary{cursor:pointer;padding:16px 20px;display:flex;gap:13px;align-items:baseline;flex-wrap:wrap;}
+.bg summary::-webkit-details-marker{display:none;}
+.bg .w{font-family:var(--serif);font-size:19px;color:var(--gold2);}
+.bg .kurz{font-size:14px;color:var(--leise);}
+.bg .in{padding:0 20px 20px;font-size:15px;line-height:1.65;}
+.bg .in p{margin:0 0 10px;}
+.bg .bsp{background:rgba(0,0,0,.2);border-radius:12px;padding:13px 15px;font-size:14.3px;
+ line-height:1.6;color:#D6D0C2;margin-top:10px;}
+.bg .bsp b{color:var(--gold2);}
+
+/* Tells */
+.tl{display:grid;grid-template-columns:52px 1fr;gap:15px;background:var(--filz2);
+ border:1px solid var(--linie);border-radius:17px;padding:17px 19px;margin-bottom:10px;align-items:start;}
+.tl .ic{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.tl .ic.stark{background:rgba(111,168,106,.18);color:var(--gruen);}
+.tl .ic.schwach{background:rgba(194,65,58,.18);color:#E08A82;}
+.tl .ic.neutral{background:rgba(78,134,168,.16);color:#8FBBD4;}
+.tl b{display:block;font-family:var(--serif);font-size:18px;font-weight:400;color:var(--gold2);margin-bottom:4px;}
+.tl p{margin:0 0 7px;font-size:14.6px;line-height:1.6;color:#D6D0C2;}
+.tl .deut{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--gold);}
+
+/* Tabelle */
+.tab{width:100%;border-collapse:collapse;font-size:14.5px;margin:14px 0;}
+.tab th,.tab td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--linie);vertical-align:top;}
+.tab th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--gold);font-weight:400;}
+.tab td:first-child{font-family:var(--mono);color:var(--gold2);white-space:nowrap;}
+.tab tr:last-child td{border-bottom:none;}
+
+.notiz{background:rgba(78,134,168,.1);border-left:3px solid var(--blau);border-radius:14px;
+ padding:16px 19px;margin:18px 0;font-size:15px;line-height:1.65;}
+.notiz b{color:var(--gold2);}
+.warnung{background:rgba(194,65,58,.12);border-left:3px solid var(--rot);border-radius:14px;
+ padding:16px 19px;margin:18px 0;font-size:15px;line-height:1.65;}
+.warnung b{color:#F0A89F;}
+
+/* Kacheln Startseite */
+.kacheln{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:22px 0;}
+.kc{display:block;background:var(--filz2);border:1px solid var(--linie);border-radius:20px;
+ padding:22px 24px;text-decoration:none;color:var(--creme);transition:border-color .15s,transform .15s;}
+.kc:hover{border-color:var(--gold);transform:translateY(-2px);}
+.kc .ic{font-size:26px;margin-bottom:10px;}
+.kc b{display:block;font-family:var(--serif);font-size:21px;font-weight:400;color:var(--gold2);margin-bottom:5px;}
+.kc p{margin:0;font-size:14.2px;color:var(--leise);line-height:1.55;}
+
+.weiter{display:flex;gap:11px;margin-top:44px;flex-wrap:wrap;}
+.weiter a{flex:1;min-width:200px;background:var(--filz2);border:1px solid var(--linie);border-radius:16px;
+ padding:15px 18px;text-decoration:none;color:var(--creme);}
+.weiter a:hover{border-color:var(--gold);}
+.weiter .lbl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.11em;
+ text-transform:uppercase;color:var(--gold);margin-bottom:3px;}
+.weiter .ttl{font-family:var(--serif);font-size:17px;}
+.foot{margin-top:50px;padding-top:22px;border-top:1px solid var(--linie);
+ font-size:13px;color:var(--leise);line-height:1.65;}
+</style></head><body>
+<div class="bar"><div class="bar-in">
+<a class="logo" href="index.html">♠<span>♥</span> Poker</a>
+<nav class="nav"><a href="index.html">Start</a><a href="haende.html">Hände</a><a href="ranges.html">Ranges</a><a href="rechnen.html">Rechnen</a><a href="begriffe.html" class="ist">Begriffe</a><a href="tells.html">Tells</a><a href="ich.html">Mein Spiel</a></nav>
+</div></div>
+<div class="wrap">
+
+<div class="kopf">
+  <div class="eyebrow">Nachschlagen</div>
+  <h1>Die <em>Begriffe.</em></h1>
+  <p class="lede">Dreißig Ausdrücke, die am Tisch fallen — erklärt in einem Satz, mit Karten statt Definitionen. Zum Aufklappen, damit nicht alles gleichzeitig auf dich einredet.</p>
+</div>
+<details class="bg"><summary><span class="w">Flop</span><span class="kurz">die ersten drei Gemeinschaftskarten</span></summary><div class="in"><p>Nach der ersten Setzrunde legt der Geber drei Karten offen in die Mitte. Sie gehören allen. Hier entscheidet sich der größte Teil des Spiels.</p><div class="bsp"><div class="hand"><div class="sk"><span class="rk">K</span><span class="su">♠</span></div><div class="sk r"><span class="rk">9</span><span class="su">♥</span></div><div class="sk r"><span class="rk">4</span><span class="su">♦</span></div></div></div></div></details><details class="bg"><summary><span class="w">Turn</span><span class="kurz">die vierte Karte</span></summary><div class="in"><p>Eine weitere Gemeinschaftskarte, dann wird wieder gesetzt. Ab hier werden die Einsätze größer.</p><div class="bsp"><div class="hand"><div class="sk"><span class="rk">K</span><span class="su">♠</span></div><div class="sk r"><span class="rk">9</span><span class="su">♥</span></div><div class="sk r"><span class="rk">4</span><span class="su">♦</span></div><div class="sk"><span class="rk">Q</span><span class="su">♣</span></div></div></div></div></details><details class="bg"><summary><span class="w">River</span><span class="kurz">die letzte Karte</span></summary><div class="in"><p>Die fünfte und letzte Gemeinschaftskarte. Danach die letzte Setzrunde, dann werden die Karten gezeigt.</p><div class="bsp"><div class="hand"><div class="sk"><span class="rk">K</span><span class="su">♠</span></div><div class="sk r"><span class="rk">9</span><span class="su">♥</span></div><div class="sk r"><span class="rk">4</span><span class="su">♦</span></div><div class="sk"><span class="rk">Q</span><span class="su">♣</span></div><div class="sk r"><span class="rk">2</span><span class="su">♥</span></div></div></div></div></details><details class="bg"><summary><span class="w">Blinds</span><span class="kurz">die Zwangseinsätze</span></summary><div class="in"><p>Die zwei Personen links vom Geber müssen setzen, bevor sie ihre Karten kennen — Small Blind und Big Blind. Sie sorgen dafür, dass überhaupt etwas im Pot liegt.</p></div></details><details class="bg"><summary><span class="w">Position</span><span class="kurz">wann du dran bist</span></summary><div class="in"><p>Je später du in der Setzrunde handelst, desto mehr weißt du. Der Button ist immer zuletzt dran und deshalb die beste Position am Tisch.</p></div></details><details class="bg"><summary><span class="w">Outs</span><span class="kurz">die Karten, die dir helfen</span></summary><div class="in"><p>Wenn du vier Karten einer Farbe hast, sind neun weitere im Deck, die deinen Flush vollenden. Das sind deine neun Outs.</p><div class="bsp"><div class="hand"><div class="sk r"><span class="rk">A</span><span class="su">♥</span></div><div class="sk r"><span class="rk">9</span><span class="su">♥</span></div><div class="sk r"><span class="rk">4</span><span class="su">♥</span></div><div class="sk r"><span class="rk">J</span><span class="su">♥</span></div></div></div></div></details><details class="bg"><summary><span class="w">Draw</span><span class="kurz">eine Hand, die noch nicht fertig ist</span></summary><div class="in"><p>Vier Karten zum Flush oder zur Straße — du hast noch nichts, aber gute Aussichten. Mit einem starken Draw kann man auch setzen, nicht nur mitgehen.</p></div></details><details class="bg"><summary><span class="w">Pot Odds</span><span class="kurz">das Preis-Leistungs-Verhältnis</span></summary><div class="in"><p>Wie viel musst du zahlen im Verhältnis zu dem, was du gewinnen kannst. Der halbe Pot als Einsatz heißt: Du brauchst 25 Prozent Gewinnchance.</p></div></details><details class="bg"><summary><span class="w">Equity</span><span class="kurz">dein Anteil am Pot</span></summary><div class="in"><p>Wenn du 35 Prozent Chance hast, gehören dir rechnerisch 35 Prozent des Pots. Auf lange Sicht bekommst du sie auch — wenn du richtig entscheidest.</p></div></details><details class="bg"><summary><span class="w">Kicker</span><span class="kurz">die Beikarte</span></summary><div class="in"><p>Beide haben ein Ass? Dann entscheidet die zweite Karte. A-K schlägt A-Q. Deshalb sind Hände wie A-4 gefährlich: Du triffst dein Ass und verlierst trotzdem.</p><div class="bsp"><div class="hand"><div class="sk"><span class="rk">A</span><span class="su">♠</span></div><div class="sk r"><span class="rk">K</span><span class="su">♦</span></div></div></div></div></details><details class="bg"><summary><span class="w">Set</span><span class="kurz">ein verstecktes Drilling</span></summary><div class="in"><p>Du hast ein Paar auf der Hand und triffst die dritte Karte auf dem Flop. Die stärkste versteckte Hand überhaupt — niemand rechnet damit.</p><div class="bsp"><div class="hand"><div class="sk"><span class="rk">8</span><span class="su">♠</span></div><div class="sk r"><span class="rk">8</span><span class="su">♥</span></div><div class="sk r"><span class="rk">8</span><span class="su">♦</span></div></div></div></div></details><details class="bg"><summary><span class="w">Trips</span><span class="kurz">ein sichtbares Drilling</span></summary><div class="in"><p>Ein Paar liegt auf dem Board, du hast die dritte Karte. Auch stark — aber jeder sieht, dass es möglich ist.</p></div></details><details class="bg"><summary><span class="w">Nuts</span><span class="kurz">die bestmögliche Hand</span></summary><div class="in"><p>Die Hand, die auf diesem Board nicht geschlagen werden kann. Wenn du sie hast, geht es nur noch darum, möglichst viel zu bekommen.</p></div></details><details class="bg"><summary><span class="w">Value Bet</span><span class="kurz">setzen, um bezahlt zu werden</span></summary><div class="in"><p>Du glaubst, du liegst vorn, und setzt so, dass eine schlechtere Hand noch mitgeht. In Heimrunden die wichtigste Einnahmequelle überhaupt.</p></div></details><details class="bg"><summary><span class="w">Bluff</span><span class="kurz">setzen ohne Hand</span></summary><div class="in"><p>Du setzt, damit eine bessere Hand aufgibt. Funktioniert gegen vorsichtige Leute — und fast nie gegen jemanden, der grundsätzlich alles mitgeht.</p></div></details><details class="bg"><summary><span class="w">Semi-Bluff</span><span class="kurz">beides gleichzeitig</span></summary><div class="in"><p>Du setzt mit einem Draw. Gewinnst du sofort, gut. Wenn nicht, kannst du immer noch treffen. Die beste Art zu bluffen.</p></div></details><details class="bg"><summary><span class="w">Continuation Bet</span><span class="kurz">nachlegen nach dem Flop</span></summary><div class="in"><p>Du hast vor dem Flop erhöht und setzt danach weiter, egal ob du getroffen hast. Funktioniert, weil dein Gegenüber in zwei von drei Fällen auch nichts hat.</p></div></details><details class="bg"><summary><span class="w">Check-Raise</span><span class="kurz">erst passen, dann erhöhen</span></summary><div class="in"><p>Du gibst ab, jemand setzt, und dann erhöhst du. Eine der stärksten Bewegungen im Spiel — und ein Zeichen, das man ernst nehmen sollte.</p></div></details><details class="bg"><summary><span class="w">Limp</span><span class="kurz">nur mitzahlen</span></summary><div class="in"><p>Du zahlst den Big Blind, ohne zu erhöhen. In Heimrunden verbreitet und fast immer ein Fehler.</p></div></details><details class="bg"><summary><span class="w">Fold</span><span class="kurz">aufgeben</span></summary><div class="in"><p>Karten weglegen, Pot verlieren, nichts mehr zahlen. Die meistunterschätzte Bewegung im Poker — gutes Aufgeben spart mehr als gutes Bluffen einbringt.</p></div></details><details class="bg"><summary><span class="w">Board</span><span class="kurz">die Karten in der Mitte</span></summary><div class="in"><p>Alle Gemeinschaftskarten zusammen. Ein „gefährliches Board" heißt: Es sind viele starke Hände möglich, etwa drei gleiche Farben oder drei Karten in Reihe.</p></div></details><details class="bg"><summary><span class="w">Rangeliste</span><span class="kurz">das Spektrum an Händen</span></summary><div class="in"><p>Statt zu raten, welche eine Karte jemand hat, überlegst du, <b>welche Gruppe</b> von Händen zu seinem Spiel passt. Das ist der größte Sprung vom Anfänger zur Fortgeschrittenen.</p></div></details><details class="bg"><summary><span class="w">Tilt</span><span class="kurz">emotional spielen</span></summary><div class="in"><p>Nach einem Verlust größer setzen, mehr Hände spielen, Rache nehmen wollen. Der teuerste Zustand im Poker — teurer als jede Fehlentscheidung.</p></div></details><details class="bg"><summary><span class="w">Bad Beat</span><span class="kurz">richtig gespielt und verloren</span></summary><div class="in"><p>Du lagst weit vorne, und die letzte Karte dreht es. Ärgerlich, aber kein Fehler. Wenn das nicht passieren würde, würde niemand mehr gegen dich spielen.</p></div></details><details class="bg"><summary><span class="w">Varianz</span><span class="kurz">die Schwankung</span></summary><div class="in"><p>Auf kurze Sicht entscheidet Glück, auf lange Sicht Können. Ein schlechter Abend sagt nichts über dein Spiel aus, zwanzig schlechte Abende schon.</p></div></details><details class="bg"><summary><span class="w">Showdown</span><span class="kurz">die Karten zeigen</span></summary><div class="in"><p>Wenn nach der letzten Setzrunde noch mehrere dabei sind, werden die Karten aufgedeckt. Die beste Hand aus fünf Karten gewinnt.</p></div></details><details class="bg"><summary><span class="w">Stack</span><span class="kurz">dein Chipstapel</span></summary><div class="in"><p>Wie viel du vor dir liegen hast. Wichtig, weil dein Stack bestimmt, wie viel du überhaupt gewinnen oder verlieren kannst.</p></div></details><details class="bg"><summary><span class="w">All-in</span><span class="kurz">alles setzen</span></summary><div class="in"><p>Du schiebst deinen ganzen Stack rein. Danach kannst du nicht mehr aussteigen — und nicht mehr verlieren als das, was du gesetzt hast.</p></div></details><details class="bg"><summary><span class="w">Suited</span><span class="kurz">gleichfarbig</span></summary><div class="in"><p>Deine zwei Karten haben dieselbe Farbe. Das macht die Hand spürbar wertvoller — im Raster sind das die Felder über der Diagonale.</p><div class="bsp"><div class="hand"><div class="sk r"><span class="rk">K</span><span class="su">♥</span></div><div class="sk r"><span class="rk">9</span><span class="su">♥</span></div></div></div></div></details><details class="bg"><summary><span class="w">Connector</span><span class="kurz">verbundene Karten</span></summary><div class="in"><p>Zwei Karten direkt nebeneinander wie 8-9. Können eine Straße bilden. Gleichfarbig und verbunden ist die beste Kombination zum billigen Mitgehen.</p><div class="bsp"><div class="hand"><div class="sk r"><span class="rk">9</span><span class="su">♦</span></div><div class="sk r"><span class="rk">8</span><span class="su">♦</span></div></div></div></div></details>
+<div class="notiz"><b>Der eine Begriff, der alles verändert:</b> <b>Rangeliste</b>. Anfängerinnen fragen sich „welche Karte hat sie wohl?" — das ist nicht zu beantworten. Fortgeschrittene fragen „welche <b>Gruppe</b> von Händen passt zu dem, was sie bisher gemacht hat?". Diese Frage ist beantwortbar, und sie macht den Unterschied.</div>
+
+<div class="weiter"><a href="rechnen.html"><span class="lbl">Zurück</span><span class="ttl">Pot Odds und Outs</span></a><a href="tells.html"><span class="lbl">Weiter</span><span class="ttl">Tells und Körpersprache</span></a></div>
+<div class="foot">Poker-Handbuch &middot; Strategie ist Standardwissen, die Selbstf&uuml;hrung ist pers&ouml;nlich.<br>
+Astrologie beeinflusst keine Karten. Spiel nur mit Geld, dessen Verlust dich nicht trifft.</div>
+</div>
+
+</body></html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start · Poker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --filz:#0E211A; --filz2:#163024; --filz3:#1D3B2D; --gold:#D9B45B; --gold2:#F0D79A;
+ --creme:#F2EDE1; --leise:#9AA79B; --linie:rgba(217,180,91,.22);
+ --rot:#C2413A; --blau:#4E86A8; --gruen:#6FA86A;
+ --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--filz);color:var(--creme);font-family:var(--sans);font-size:16px;line-height:1.6;
+ background-image:radial-gradient(circle at 15% -5%,rgba(217,180,91,.08),transparent 50%),
+  radial-gradient(circle at 88% 22%,rgba(78,134,168,.06),transparent 45%);background-attachment:fixed;}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px 90px;}
+a{color:var(--gold);}
+
+/* Kopfleiste */
+.bar{position:sticky;top:0;z-index:50;background:rgba(14,33,26,.9);backdrop-filter:blur(10px);
+ border-bottom:1px solid var(--linie);}
+.bar-in{max-width:960px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.logo{font-family:var(--serif);font-size:18px;color:var(--creme);text-decoration:none;white-space:nowrap;}
+.logo span{color:var(--rot);}
+.nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap;}
+.nav a{font-size:13.5px;color:var(--leise);text-decoration:none;padding:8px 12px;border-radius:14px;}
+.nav a:hover{color:var(--creme);background:rgba(255,255,255,.05);}
+.nav a.ist{background:var(--gold);color:var(--filz);font-weight:500;}
+@media(max-width:700px){.nav a{padding:6px 9px;font-size:12.5px;}}
+
+h1{font-family:var(--serif);font-size:clamp(32px,6.5vw,54px);font-weight:300;line-height:1.03;
+ letter-spacing:-.025em;margin:0 0 12px;}
+h1 em{font-style:italic;color:var(--gold);}
+h2{font-family:var(--serif);font-size:clamp(23px,4.2vw,31px);font-weight:400;color:var(--gold);
+ margin:50px 0 6px;letter-spacing:-.01em;}
+h3{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--gold2);margin:0 0 8px;}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+ color:var(--gold);margin-bottom:10px;}
+.lede{font-size:17px;color:var(--leise);max-width:60ch;line-height:1.65;margin:0 0 26px;}
+.sub{font-size:14.5px;color:var(--leise);margin:0 0 18px;line-height:1.6;}
+p{margin:0 0 13px;}
+.kopf{padding:52px 0 34px;}
+
+.karte{background:var(--filz2);border:1px solid var(--linie);border-radius:20px;padding:22px 24px;margin-bottom:13px;}
+.karte.gold{border-color:rgba(217,180,91,.5);box-shadow:0 0 28px rgba(217,180,91,.06) inset;}
+
+/* Spielkarten */
+.hand{display:flex;gap:5px;flex-wrap:wrap;}
+.sk{width:42px;height:60px;border-radius:6px;background:linear-gradient(170deg,#FFFDF8,#F0E9DC);
+ color:#1A1A1A;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ font-family:var(--mono);font-weight:700;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.35);flex:none;}
+.sk.gr{width:52px;height:74px;}
+.sk .rk{font-size:17px;} .sk.gr .rk{font-size:21px;}
+.sk .su{font-size:15px;margin-top:3px;} .sk.gr .su{font-size:19px;margin-top:4px;}
+.sk.r{color:#C2413A;}
+.sk.leer{background:repeating-linear-gradient(45deg,#1D3B2D,#1D3B2D 5px,#163024 5px,#163024 10px);
+ border:1px solid var(--linie);}
+
+/* Ranking */
+.rk-z{display:grid;grid-template-columns:44px 1fr;gap:15px;background:var(--filz2);
+ border:1px solid var(--linie);border-radius:17px;padding:16px 18px;margin-bottom:9px;align-items:center;}
+.rk-z .pl{width:36px;height:36px;border-radius:11px;background:var(--gold);color:var(--filz);
+ display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:17px;font-weight:600;}
+.rk-z.schwach .pl{background:rgba(217,180,91,.3);color:var(--gold2);}
+.rk-nm{font-family:var(--serif);font-size:19px;color:var(--creme);}
+.rk-er{font-size:13.8px;color:var(--leise);line-height:1.5;margin-top:2px;}
+.rk-oben{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+.rk-quote{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--gold);
+ background:rgba(217,180,91,.1);border-radius:10px;padding:5px 10px;white-space:nowrap;}
+.rk-karten{margin-top:10px;}
+
+/* Fakten */
+.fakten{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:11px;margin:18px 0;}
+.f{background:var(--filz2);border:1px solid var(--linie);border-radius:17px;padding:18px 20px;text-align:center;}
+.f .z{font-family:var(--serif);font-size:34px;color:var(--gold2);line-height:1;}
+.f .t{font-size:13.8px;color:var(--leise);line-height:1.5;margin-top:9px;}
+
+/* Begriffe */
+.bg{background:var(--filz2);border:1px solid var(--linie);border-radius:18px;margin-bottom:10px;overflow:hidden;}
+.bg summary{cursor:pointer;padding:16px 20px;display:flex;gap:13px;align-items:baseline;flex-wrap:wrap;}
+.bg summary::-webkit-details-marker{display:none;}
+.bg .w{font-family:var(--serif);font-size:19px;color:var(--gold2);}
+.bg .kurz{font-size:14px;color:var(--leise);}
+.bg .in{padding:0 20px 20px;font-size:15px;line-height:1.65;}
+.bg .in p{margin:0 0 10px;}
+.bg .bsp{background:rgba(0,0,0,.2);border-radius:12px;padding:13px 15px;font-size:14.3px;
+ line-height:1.6;color:#D6D0C2;margin-top:10px;}
+.bg .bsp b{color:var(--gold2);}
+
+/* Tells */
+.tl{display:grid;grid-template-columns:52px 1fr;gap:15px;background:var(--filz2);
+ border:1px solid var(--linie);border-radius:17px;padding:17px 19px;margin-bottom:10px;align-items:start;}
+.tl .ic{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.tl .ic.stark{background:rgba(111,168,106,.18);color:var(--gruen);}
+.tl .ic.schwach{background:rgba(194,65,58,.18);color:#E08A82;}
+.tl .ic.neutral{background:rgba(78,134,168,.16);color:#8FBBD4;}
+.tl b{display:block;font-family:var(--serif);font-size:18px;font-weight:400;color:var(--gold2);margin-bottom:4px;}
+.tl p{margin:0 0 7px;font-size:14.6px;line-height:1.6;color:#D6D0C2;}
+.tl .deut{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--gold);}
+
+/* Tabelle */
+.tab{width:100%;border-collapse:collapse;font-size:14.5px;margin:14px 0;}
+.tab th,.tab td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--linie);vertical-align:top;}
+.tab th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--gold);font-weight:400;}
+.tab td:first-child{font-family:var(--mono);color:var(--gold2);white-space:nowrap;}
+.tab tr:last-child td{border-bottom:none;}
+
+.notiz{background:rgba(78,134,168,.1);border-left:3px solid var(--blau);border-radius:14px;
+ padding:16px 19px;margin:18px 0;font-size:15px;line-height:1.65;}
+.notiz b{color:var(--gold2);}
+.warnung{background:rgba(194,65,58,.12);border-left:3px solid var(--rot);border-radius:14px;
+ padding:16px 19px;margin:18px 0;font-size:15px;line-height:1.65;}
+.warnung b{color:#F0A89F;}
+
+/* Kacheln Startseite */
+.kacheln{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:22px 0;}
+.kc{display:block;background:var(--filz2);border:1px solid var(--linie);border-radius:20px;
+ padding:22px 24px;text-decoration:none;color:var(--creme);transition:border-color .15s,transform .15s;}
+.kc:hover{border-color:var(--gold);transform:translateY(-2px);}
+.kc .ic{font-size:26px;margin-bottom:10px;}
+.kc b{display:block;font-family:var(--serif);font-size:21px;font-weight:400;color:var(--gold2);margin-bottom:5px;}
+.kc p{margin:0;font-size:14.2px;color:var(--leise);line-height:1.55;}
+
+.weiter{display:flex;gap:11px;margin-top:44px;flex-wrap:wrap;}
+.weiter a{flex:1;min-width:200px;background:var(--filz2);border:1px solid var(--linie);border-radius:16px;
+ padding:15px 18px;text-decoration:none;color:var(--creme);}
+.weiter a:hover{border-color:var(--gold);}
+.weiter .lbl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.11em;
+ text-transform:uppercase;color:var(--gold);margin-bottom:3px;}
+.weiter .ttl{font-family:var(--serif);font-size:17px;}
+.foot{margin-top:50px;padding-top:22px;border-top:1px solid var(--linie);
+ font-size:13px;color:var(--leise);line-height:1.65;}
+</style></head><body>
+<div class="bar"><div class="bar-in">
+<a class="logo" href="index.html">♠<span>♥</span> Poker</a>
+<nav class="nav"><a href="index.html" class="ist">Start</a><a href="haende.html">Hände</a><a href="ranges.html">Ranges</a><a href="rechnen.html">Rechnen</a><a href="begriffe.html">Begriffe</a><a href="tells.html">Tells</a><a href="ich.html">Mein Spiel</a></nav>
+</div></div>
+<div class="wrap">
+
+<div class="kopf">
+  <div class="eyebrow">Handbuch</div>
+  <h1>Poker für <em>Widder</em><br>mit Fische-Merkur.</h1>
+  <p class="lede">Sechs Seiten: was Hände wert sind, welche du spielst, wie du schnell rechnest, was die Fachbegriffe bedeuten, worauf du bei Menschen achtest — und wie du dich selbst im Griff behältst.</p>
+</div>
+
+<div class="kacheln">
+  <a class="kc" href="haende.html"><div class="ic">♠</div><b>Hände</b><p>Alle zehn Kombinationen mit Karten, Häufigkeit und wie oft du sie tatsächlich siehst.</p></a>
+  <a class="kc" href="ranges.html"><div class="ic">▦</div><b>Ranges</b><p>Welche Hände du aus welcher Position spielst — als Raster zum Anschauen.</p></a>
+  <a class="kc" href="rechnen.html"><div class="ic">%</div><b>Rechnen</b><p>Pot Odds und Outs, mit Rechner und Tabelle zum Auswendiglernen.</p></a>
+  <a class="kc" href="begriffe.html"><div class="ic">≡</div><b>Begriffe</b><p>Dreißig Ausdrücke erklärt, mit Beispielkarten statt Definitionen.</p></a>
+  <a class="kc" href="tells.html"><div class="ic">◉</div><b>Tells</b><p>Körpersprache, Timing und Einsatzmuster — und was davon wirklich taugt.</p></a>
+  <a class="kc" href="ich.html"><div class="ic">☉</div><b>Mein Spiel</b><p>Deine Placements als Spielertyp: was du nutzt, was dich Geld kostet.</p></a>
+</div>
+
+<div class="karte gold">
+  <h3>Die Kurzfassung, falls du nur das hier liest</h3>
+  <p style="font-family:var(--serif);font-size:clamp(18px,3.2vw,23px);line-height:1.45;color:var(--gold2);margin:0;">
+  Weniger Hände spielen, als dein Widder will.<br>
+  Die, die du spielst, aggressiver als andere.<br>
+  Nach einem Bad Beat eine Hand aussetzen.<br>
+  Im eigenen Pot weniger reden.<br>
+  Und vorher festlegen, wann Schluss ist.</p>
+</div>
+
+<div class="notiz"><b>Wie ehrlich das hier ist:</b> Astrologie verbessert keine Karten und keine Gewinnchancen — das tut nur die Mathematik. Was die Astrologie kann, ist etwas anderes und durchaus brauchbar: Sie beschreibt, <b>wie du unter Druck reagierst</b>. Und Poker verlieren die meisten nicht durch schlechte Karten, sondern durch Ungeduld, Ego und Tilt.</div>
+
+<div class="weiter"><a href="haende.html"><span class="lbl">Los geht’s</span><span class="ttl">Was Hände wert sind</span></a></div>
+<div class="foot">Poker-Handbuch &middot; Strategie ist Standardwissen, die Selbstf&uuml;hrung ist pers&ouml;nlich.<br>
+Astrologie beeinflusst keine Karten. Spiel nur mit Geld, dessen Verlust dich nicht trifft.</div>
+</div>
+
+</body></html>

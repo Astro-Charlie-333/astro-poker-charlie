@@ -1,0 +1,273 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ranges · Poker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --filz:#0E211A; --filz2:#163024; --filz3:#1D3B2D; --gold:#D9B45B; --gold2:#F0D79A;
+ --creme:#F2EDE1; --leise:#9AA79B; --linie:rgba(217,180,91,.22);
+ --rot:#C2413A; --blau:#4E86A8; --gruen:#6FA86A;
+ --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--filz);color:var(--creme);font-family:var(--sans);font-size:16px;line-height:1.6;
+ background-image:radial-gradient(circle at 15% -5%,rgba(217,180,91,.08),transparent 50%),
+  radial-gradient(circle at 88% 22%,rgba(78,134,168,.06),transparent 45%);background-attachment:fixed;}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px 90px;}
+a{color:var(--gold);}
+
+/* Kopfleiste */
+.bar{position:sticky;top:0;z-index:50;background:rgba(14,33,26,.9);backdrop-filter:blur(10px);
+ border-bottom:1px solid var(--linie);}
+.bar-in{max-width:960px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.logo{font-family:var(--serif);font-size:18px;color:var(--creme);text-decoration:none;white-space:nowrap;}
+.logo span{color:var(--rot);}
+.nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap;}
+.nav a{font-size:13.5px;color:var(--leise);text-decoration:none;padding:8px 12px;border-radius:14px;}
+.nav a:hover{color:var(--creme);background:rgba(255,255,255,.05);}
+.nav a.ist{background:var(--gold);color:var(--filz);font-weight:500;}
+@media(max-width:700px){.nav a{padding:6px 9px;font-size:12.5px;}}
+
+h1{font-family:var(--serif);font-size:clamp(32px,6.5vw,54px);font-weight:300;line-height:1.03;
+ letter-spacing:-.025em;margin:0 0 12px;}
+h1 em{font-style:italic;color:var(--gold);}
+h2{font-family:var(--serif);font-size:clamp(23px,4.2vw,31px);font-weight:400;color:var(--gold);
+ margin:50px 0 6px;letter-spacing:-.01em;}
+h3{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--gold2);margin:0 0 8px;}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+ color:var(--gold);margin-bottom:10px;}
+.lede{font-size:17px;color:var(--leise);max-width:60ch;line-height:1.65;margin:0 0 26px;}
+.sub{font-size:14.5px;color:var(--leise);margin:0 0 18px;line-height:1.6;}
+p{margin:0 0 13px;}
+.kopf{padding:52px 0 34px;}
+
+.karte{background:var(--filz2);border:1px solid var(--linie);border-radius:20px;padding:22px 24px;margin-bottom:13px;}
+.karte.gold{border-color:rgba(217,180,91,.5);box-shadow:0 0 28px rgba(217,180,91,.06) inset;}
+
+/* Spielkarten */
+.hand{display:flex;gap:5px;flex-wrap:wrap;}
+.sk{width:42px;height:60px;border-radius:6px;background:linear-gradient(170deg,#FFFDF8,#F0E9DC);
+ color:#1A1A1A;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ font-family:var(--mono);font-weight:700;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.35);flex:none;}
+.sk.gr{width:52px;height:74px;}
+.sk .rk{font-size:17px;} .sk.gr .rk{font-size:21px;}
+.sk .su{font-size:15px;margin-top:3px;} .sk.gr .su{font-size:19px;margin-top:4px;}
+.sk.r{color:#C2413A;}
+.sk.leer{background:repeating-linear-gradient(45deg,#1D3B2D,#1D3B2D 5px,#163024 5px,#163024 10px);
+ border:1px solid var(--linie);}
+
+/* Ranking */
+.rk-z{display:grid;grid-template-columns:44px 1fr;gap:15px;background:var(--filz2);
+ border:1px solid var(--linie);border-radius:17px;padding:16px 18px;margin-bottom:9px;align-items:center;}
+.rk-z .pl{width:36px;height:36px;border-radius:11px;background:var(--gold);color:var(--filz);
+ display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:17px;font-weight:600;}
+.rk-z.schwach .pl{background:rgba(217,180,91,.3);color:var(--gold2);}
+.rk-nm{font-family:var(--serif);font-size:19px;color:var(--creme);}
+.rk-er{font-size:13.8px;color:var(--leise);line-height:1.5;margin-top:2px;}
+.rk-oben{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+.rk-quote{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--gold);
+ background:rgba(217,180,91,.1);border-radius:10px;padding:5px 10px;white-space:nowrap;}
+.rk-karten{margin-top:10px;}
+
+/* Fakten */
+.fakten{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:11px;margin:18px 0;}
+.f{background:var(--filz2);border:1px solid var(--linie);border-radius:17px;padding:18px 20px;text-align:center;}
+.f .z{font-family:var(--serif);font-size:34px;color:var(--gold2);line-height:1;}
+.f .t{font-size:13.8px;color:var(--leise);line-height:1.5;margin-top:9px;}
+
+/* Begriffe */
+.bg{background:var(--filz2);border:1px solid var(--linie);border-radius:18px;margin-bottom:10px;overflow:hidden;}
+.bg summary{cursor:pointer;padding:16px 20px;display:flex;gap:13px;align-items:baseline;flex-wrap:wrap;}
+.bg summary::-webkit-details-marker{display:none;}
+.bg .w{font-family:var(--serif);font-size:19px;color:var(--gold2);}
+.bg .kurz{font-size:14px;color:var(--leise);}
+.bg .in{padding:0 20px 20px;font-size:15px;line-height:1.65;}
+.bg .in p{margin:0 0 10px;}
+.bg .bsp{background:rgba(0,0,0,.2);border-radius:12px;padding:13px 15px;font-size:14.3px;
+ line-height:1.6;color:#D6D0C2;margin-top:10px;}
+.bg .bsp b{color:var(--gold2);}
+
+/* Tells */
+.tl{display:grid;grid-template-columns:52px 1fr;gap:15px;background:var(--filz2);
+ border:1px solid var(--linie);border-radius:17px;padding:17px 19px;margin-bottom:10px;align-items:start;}
+.tl .ic{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.tl .ic.stark{background:rgba(111,168,106,.18);color:var(--gruen);}
+.tl .ic.schwach{background:rgba(194,65,58,.18);color:#E08A82;}
+.tl .ic.neutral{background:rgba(78,134,168,.16);color:#8FBBD4;}
+.tl b{display:block;font-family:var(--serif);font-size:18px;font-weight:400;color:var(--gold2);margin-bottom:4px;}
+.tl p{margin:0 0 7px;font-size:14.6px;line-height:1.6;color:#D6D0C2;}
+.tl .deut{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--gold);}
+
+/* Tabelle */
+.tab{width:100%;border-collapse:collapse;font-size:14.5px;margin:14px 0;}
+.tab th,.tab td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--linie);vertical-align:top;}
+.tab th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--gold);font-weight:400;}
+.tab td:first-child{font-family:var(--mono);color:var(--gold2);white-space:nowrap;}
+.tab tr:last-child td{border-bottom:none;}
+
+.notiz{background:rgba(78,134,168,.1);border-left:3px solid var(--blau);border-radius:14px;
+ padding:16px 19px;margin:18px 0;font-size:15px;line-height:1.65;}
+.notiz b{color:var(--gold2);}
+.warnung{background:rgba(194,65,58,.12);border-left:3px solid var(--rot);border-radius:14px;
+ padding:16px 19px;margin:18px 0;font-size:15px;line-height:1.65;}
+.warnung b{color:#F0A89F;}
+
+/* Kacheln Startseite */
+.kacheln{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:22px 0;}
+.kc{display:block;background:var(--filz2);border:1px solid var(--linie);border-radius:20px;
+ padding:22px 24px;text-decoration:none;color:var(--creme);transition:border-color .15s,transform .15s;}
+.kc:hover{border-color:var(--gold);transform:translateY(-2px);}
+.kc .ic{font-size:26px;margin-bottom:10px;}
+.kc b{display:block;font-family:var(--serif);font-size:21px;font-weight:400;color:var(--gold2);margin-bottom:5px;}
+.kc p{margin:0;font-size:14.2px;color:var(--leise);line-height:1.55;}
+
+.weiter{display:flex;gap:11px;margin-top:44px;flex-wrap:wrap;}
+.weiter a{flex:1;min-width:200px;background:var(--filz2);border:1px solid var(--linie);border-radius:16px;
+ padding:15px 18px;text-decoration:none;color:var(--creme);}
+.weiter a:hover{border-color:var(--gold);}
+.weiter .lbl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.11em;
+ text-transform:uppercase;color:var(--gold);margin-bottom:3px;}
+.weiter .ttl{font-family:var(--serif);font-size:17px;}
+.foot{margin-top:50px;padding-top:22px;border-top:1px solid var(--linie);
+ font-size:13px;color:var(--leise);line-height:1.65;}
+</style></head><body>
+<div class="bar"><div class="bar-in">
+<a class="logo" href="index.html">♠<span>♥</span> Poker</a>
+<nav class="nav"><a href="index.html">Start</a><a href="haende.html">Hände</a><a href="ranges.html" class="ist">Ranges</a><a href="rechnen.html">Rechnen</a><a href="begriffe.html">Begriffe</a><a href="tells.html">Tells</a><a href="ich.html">Mein Spiel</a></nav>
+</div></div>
+<div class="wrap">
+
+<style>
+.rg-wahl{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.rg-wahl button{font-family:var(--sans);font-size:13.5px;padding:9px 16px;border:1px solid var(--linie);
+ background:rgba(255,255,255,.03);color:var(--creme);border-radius:18px;cursor:pointer;}
+.rg-wahl button:hover{border-color:var(--gold);}
+.rg-wahl button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--filz);font-weight:500;}
+.grid{display:grid;grid-template-columns:repeat(13,1fr);gap:2px;max-width:620px;margin:0 auto;}
+.z{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:3px;
+ font-family:var(--mono);font-size:9.5px;background:rgba(255,255,255,.04);color:#5F6B60;}
+@media(min-width:620px){.z{font-size:11.5px;}}
+.z.raise{background:var(--gold);color:var(--filz);font-weight:700;}
+.z.call{background:rgba(217,180,91,.32);color:var(--creme);}
+.z.paar{outline:1px solid rgba(255,255,255,.18);}
+.rg-leg{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;font-size:12.5px;color:var(--leise);margin-top:16px;}
+.rg-leg span{display:flex;align-items:center;gap:7px;}
+.rg-leg i{width:15px;height:15px;border-radius:3px;display:inline-block;}
+.rg-info{text-align:center;font-family:var(--mono);font-size:12.5px;color:var(--gold);margin-top:12px;}
+.rg-hint{text-align:center;font-size:14.5px;color:var(--leise);margin-top:10px;line-height:1.55;max-width:56ch;margin-left:auto;margin-right:auto;}
+.tisch{position:relative;max-width:440px;margin:22px auto;aspect-ratio:1.6;
+ background:radial-gradient(ellipse at center,#1D3B2D,#122A20);border:3px solid rgba(217,180,91,.3);border-radius:50%;}
+.sp{position:absolute;width:62px;text-align:center;transform:translate(-50%,-50%);}
+.sp .pk{width:34px;height:34px;border-radius:50%;background:var(--filz2);border:1px solid var(--linie);
+ margin:0 auto 4px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--leise);}
+.sp .nm{font-size:10.5px;color:var(--leise);line-height:1.25;}
+.sp.gut .pk{background:var(--gold);color:var(--filz);border-color:var(--gold);font-weight:700;}
+.sp.gut .nm{color:var(--gold2);}
+</style>
+
+<div class="kopf">
+  <div class="eyebrow">Vor dem Flop</div>
+  <h1>Welche Hände du <em>spielst.</em></h1>
+  <p class="lede">Die wichtigste Entscheidung im Poker fällt, bevor eine einzige Gemeinschaftskarte liegt. Und sie hängt weniger von deinen Karten ab als davon, <b>wann du dran bist</b>.</p>
+</div>
+
+<h2>Warum Position alles ist</h2>
+<div class="karte">
+  <div class="tisch">
+    <div class="sp" style="left:50%;top:11%"><div class="pk">D</div><div class="nm">Geber</div></div>
+    <div class="sp" style="left:80%;top:26%"><div class="pk">SB</div><div class="nm">Small<br>Blind</div></div>
+    <div class="sp" style="left:91%;top:62%"><div class="pk">BB</div><div class="nm">Big<br>Blind</div></div>
+    <div class="sp" style="left:64%;top:90%"><div class="pk">1</div><div class="nm">unter dem<br>Geber</div></div>
+    <div class="sp" style="left:32%;top:90%"><div class="pk">2</div><div class="nm">Mitte</div></div>
+    <div class="sp" style="left:9%;top:62%"><div class="pk">3</div><div class="nm">Cutoff</div></div>
+    <div class="sp gut" style="left:20%;top:26%"><div class="pk">★</div><div class="nm">Button</div></div>
+  </div>
+  <p style="text-align:center;font-size:14.5px;color:var(--leise);max-width:52ch;margin:0 auto;">
+  Gesetzt wird im Uhrzeigersinn. Wer am <b style="color:var(--gold2)">Button</b> sitzt, handelt in jeder Runde
+  <b>als Letzte</b> — sieht also erst, was alle anderen machen, und entscheidet dann. Das ist der größte Vorteil im ganzen Spiel.</p>
+</div>
+
+<h2>Dein Raster</h2>
+<p class="sub">Wähl deine Position. Oben links AA, unten rechts 22. Über der Diagonale die gleichfarbigen Hände, darunter die ungleichfarbigen.</p>
+<div class="rg-wahl" id="posWahl"></div>
+<div class="karte">
+  <div class="grid" id="grid"></div>
+  <div class="rg-leg">
+    <span><i style="background:#D9B45B"></i> erhöhen</span>
+    <span><i style="background:rgba(217,180,91,.32)"></i> mitgehen oder erhöhen</span>
+    <span><i style="background:rgba(255,255,255,.04)"></i> wegwerfen</span>
+  </div>
+  <div class="rg-info" id="rgInfo"></div>
+  <div class="rg-hint" id="rgHint"></div>
+</div>
+
+<h2>Drei Dinge, die dir das Raster nicht sagt</h2>
+<table class="tab">
+<tr><td>Gleichfarbig</td><td>Zwei Karten derselben Farbe sind spürbar mehr wert — nicht weil du oft einen Flush triffst (das passiert selten), sondern weil du öfter eine Hand hast, mit der du weiterspielen kannst.</td></tr>
+<tr><td>Verbunden</td><td>Karten nebeneinander wie 8-9 können eine Straße bilden. Zusammen mit gleichfarbig sind das die besten Hände, um billig mitzugehen — sie treffen selten, aber wenn, dann groß.</td></tr>
+<tr><td>Wer sitzt hinter dir</td><td>Sitzt rechts von dir jemand, der jede Hand spielt, kannst du enger spielen und auf gute Hände warten. Sitzt dort jemand sehr Vorsichtiges, kannst du seine Blinds öfter angreifen.</td></tr>
+</table>
+
+<div class="warnung"><b>Die teuerste Gewohnheit in Heimrunden:</b> nur mitzahlen statt zu erhöhen. Entweder ist die Hand gut genug zum Erhöhen — oder gut genug zum Wegwerfen. Wer nur mitgeht, kann den Pot nur auf einem Weg gewinnen: mit der besten Hand. Wer erhöht, auf zweien.</div>
+
+<div class="weiter"><a href="haende.html"><span class="lbl">Zurück</span><span class="ttl">Was Hände wert sind</span></a><a href="rechnen.html"><span class="lbl">Weiter</span><span class="ttl">Pot Odds und Outs</span></a></div>
+<div class="foot">Poker-Handbuch &middot; Strategie ist Standardwissen, die Selbstf&uuml;hrung ist pers&ouml;nlich.<br>
+Astrologie beeinflusst keine Karten. Spiel nur mit Geld, dessen Verlust dich nicht trifft.</div>
+</div>
+<script>
+
+var R=['A','K','Q','J','T','9','8','7','6','5','4','3','2'];
+var W={A:14,K:13,Q:12,J:11,T:10,'9':9,'8':8,'7':7,'6':6,'5':5,'4':4,'3':3,'2':2};
+function paar(h,m){return h.p&&W[h.a]>=m;}
+function su(h,hoch,m){return h.s&&h.a===hoch&&W[h.b]>=m;}
+function off(h,hoch,m){return !h.s&&!h.p&&h.a===hoch&&W[h.b]>=m;}
+function con(h,m,l){return h.s&&!h.p&&(W[h.a]-W[h.b])<=l&&W[h.b]>=m;}
+var POS=[
+ {id:'utg',nm:'Unter dem Geber',hint:'Die ersten Plätze nach dem Geber. Alle handeln nach dir — du weißt am wenigsten. Hier nur die klar besten Hände.',
+  raise:function(h){return paar(h,7)||su(h,'A',10)||su(h,'K',10)||su(h,'Q',10)||(h.s&&h.a==='J'&&h.b==='T')||off(h,'A',12)||(!h.s&&h.a==='K'&&h.b==='Q');},
+  call:function(h){return paar(h,5)||su(h,'A',2);}},
+ {id:'mp',nm:'Mitte',hint:'Ein paar Leute sind schon raus. Du kannst etwas mehr mitnehmen, bist aber noch nicht frei.',
+  raise:function(h){return paar(h,6)||su(h,'A',8)||su(h,'K',9)||su(h,'Q',9)||con(h,9,1)||off(h,'A',11)||(!h.s&&h.a==='K'&&W[h.b]>=12);},
+  call:function(h){return paar(h,4)||su(h,'A',2)||con(h,7,1);}},
+ {id:'co',nm:'Cutoff',hint:'Einer vor dem Button. Schon fast die beste Position — und oft die beste Gelegenheit zum Angreifen.',
+  raise:function(h){return paar(h,4)||su(h,'A',5)||su(h,'K',8)||su(h,'Q',8)||su(h,'J',8)||con(h,7,1)||off(h,'A',10)||(!h.s&&h.a==='K'&&W[h.b]>=11)||(!h.s&&h.a==='Q'&&W[h.b]>=11);},
+  call:function(h){return paar(h,2)||(h.s&&h.a==='A')||con(h,5,1);}},
+ {id:'btn',nm:'Button',hint:'Die beste Position am Tisch: Du handelst in jeder Runde zuletzt. Deshalb darfst du hier fast dreimal so viel spielen wie vorne.',
+  raise:function(h){return paar(h,2)||(h.s&&h.a==='A')||su(h,'K',5)||su(h,'Q',7)||su(h,'J',7)||su(h,'T',7)||con(h,5,2)||off(h,'A',8)||(!h.s&&h.a==='K'&&W[h.b]>=9)||(!h.s&&h.a==='Q'&&W[h.b]>=9)||(!h.s&&h.a==='J'&&W[h.b]>=9)||(!h.s&&h.a==='T'&&W[h.b]===9);},
+  call:function(h){return h.s&&W[h.b]>=4;}},
+ {id:'bb',nm:'Big Blind',hint:'Du hast schon gezahlt, also bekommst du einen besseren Preis — deshalb gehst du breiter mit, erhöhst aber seltener.',
+  raise:function(h){return paar(h,8)||su(h,'A',10)||off(h,'A',12)||(!h.s&&h.a==='K'&&h.b==='Q');},
+  call:function(h){return paar(h,2)||(h.s&&W[h.a]>=10)||con(h,4,2)||off(h,'A',5)||(!h.s&&h.a==='K'&&W[h.b]>=9)||(!h.s&&h.a==='Q'&&W[h.b]>=10)||(!h.s&&h.a==='J'&&W[h.b]>=10);}}
+];
+var aktiv='btn';
+function gridZ(){
+  var p=POS.filter(function(x){return x.id===aktiv;})[0];
+  var g=document.getElementById('grid'); g.innerHTML='';
+  var nR=0,nC=0,komb=0,kg=0;
+  for(var i=0;i<13;i++)for(var j=0;j<13;j++){
+    var a=R[Math.min(i,j)],b=R[Math.max(i,j)];
+    var h={a:a,b:b,p:(i===j),s:(j>i)};
+    var t=h.p?a+a:(a+b+(h.s?'s':'o'));
+    var kk=h.p?6:(h.s?4:12); kg+=kk;
+    var c='z'+(h.p?' paar':'');
+    if(p.raise(h)){c+=' raise';nR++;komb+=kk;} else if(p.call(h)){c+=' call';nC++;komb+=kk;}
+    var d=document.createElement('div'); d.className=c; d.textContent=t; g.appendChild(d);
+  }
+  document.getElementById('rgInfo').textContent=nR+' Hände erhöhen · '+nC+' mitgehen · etwa '+Math.round(komb/kg*100)+'% aller Blätter';
+  document.getElementById('rgHint').textContent=p.hint;
+}
+function wahlZ(){
+  var w=document.getElementById('posWahl'); w.innerHTML='';
+  POS.forEach(function(p){
+    var b=document.createElement('button'); b.type='button'; b.textContent=p.nm;
+    b.setAttribute('aria-pressed',aktiv===p.id);
+    b.addEventListener('click',function(){aktiv=p.id;wahlZ();gridZ();});
+    w.appendChild(b);
+  });
+}
+wahlZ(); gridZ();
+
+</script>
+</body></html>

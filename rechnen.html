@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rechnen · Poker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --filz:#0E211A; --filz2:#163024; --filz3:#1D3B2D; --gold:#D9B45B; --gold2:#F0D79A;
+ --creme:#F2EDE1; --leise:#9AA79B; --linie:rgba(217,180,91,.22);
+ --rot:#C2413A; --blau:#4E86A8; --gruen:#6FA86A;
+ --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--filz);color:var(--creme);font-family:var(--sans);font-size:16px;line-height:1.6;
+ background-image:radial-gradient(circle at 15% -5%,rgba(217,180,91,.08),transparent 50%),
+  radial-gradient(circle at 88% 22%,rgba(78,134,168,.06),transparent 45%);background-attachment:fixed;}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px 90px;}
+a{color:var(--gold);}
+
+/* Kopfleiste */
+.bar{position:sticky;top:0;z-index:50;background:rgba(14,33,26,.9);backdrop-filter:blur(10px);
+ border-bottom:1px solid var(--linie);}
+.bar-in{max-width:960px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.logo{font-family:var(--serif);font-size:18px;color:var(--creme);text-decoration:none;white-space:nowrap;}
+.logo span{color:var(--rot);}
+.nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap;}
+.nav a{font-size:13.5px;color:var(--leise);text-decoration:none;padding:8px 12px;border-radius:14px;}
+.nav a:hover{color:var(--creme);background:rgba(255,255,255,.05);}
+.nav a.ist{background:var(--gold);color:var(--filz);font-weight:500;}
+@media(max-width:700px){.nav a{padding:6px 9px;font-size:12.5px;}}
+
+h1{font-family:var(--serif);font-size:clamp(32px,6.5vw,54px);font-weight:300;line-height:1.03;
+ letter-spacing:-.025em;margin:0 0 12px;}
+h1 em{font-style:italic;color:var(--gold);}
+h2{font-family:var(--serif);font-size:clamp(23px,4.2vw,31px);font-weight:400;color:var(--gold);
+ margin:50px 0 6px;letter-spacing:-.01em;}
+h3{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--gold2);margin:0 0 8px;}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+ color:var(--gold);margin-bottom:10px;}
+.lede{font-size:17px;color:var(--leise);max-width:60ch;line-height:1.65;margin:0 0 26px;}
+.sub{font-size:14.5px;color:var(--leise);margin:0 0 18px;line-height:1.6;}
+p{margin:0 0 13px;}
+.kopf{padding:52px 0 34px;}
+
+.karte{background:var(--filz2);border:1px solid var(--linie);border-radius:20px;padding:22px 24px;margin-bottom:13px;}
+.karte.gold{border-color:rgba(217,180,91,.5);box-shadow:0 0 28px rgba(217,180,91,.06) inset;}
+
+/* Spielkarten */
+.hand{display:flex;gap:5px;flex-wrap:wrap;}
+.sk{width:42px;height:60px;border-radius:6px;background:linear-gradient(170deg,#FFFDF8,#F0E9DC);
+ color:#1A1A1A;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ font-family:var(--mono);font-weight:700;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.35);flex:none;}
+.sk.gr{width:52px;height:74px;}
+.sk .rk{font-size:17px;} .sk.gr .rk{font-size:21px;}
+.sk .su{font-size:15px;margin-top:3px;} .sk.gr .su{font-size:19px;margin-top:4px;}
+.sk.r{color:#C2413A;}
+.sk.leer{background:repeating-linear-gradient(45deg,#1D3B2D,#1D3B2D 5px,#163024 5px,#163024 10px);
+ border:1px solid var(--linie);}
+
+/* Ranking */
+.rk-z{display:grid;grid-template-columns:44px 1fr;gap:15px;background:var(--filz2);
+ border:1px solid var(--linie);border-radius:17px;padding:16px 18px;margin-bottom:9px;align-items:center;}
+.rk-z .pl{width:36px;height:36px;border-radius:11px;background:var(--gold);color:var(--filz);
+ display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:17px;font-weight:600;}
+.rk-z.schwach .pl{background:rgba(217,180,91,.3);color:var(--gold2);}
+.rk-nm{font-family:var(--serif);font-size:19px;color:var(--creme);}
+.rk-er{font-size:13.8px;color:var(--leise);line-height:1.5;margin-top:2px;}
+.rk-oben{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+.rk-quote{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--gold);
+ background:rgba(217,180,91,.1);border-radius:10px;padding:5px 10px;white-space:nowrap;}
+.rk-karten{margin-top:10px;}
+
+/* Fakten */
+.fakten{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:11px;margin:18px 0;}
+.f{background:var(--filz2);border:1px solid var(--linie);border-radius:17px;padding:18px 20px;text-align:center;}
+.f .z{font-family:var(--serif);font-size:34px;color:var(--gold2);line-height:1;}
+.f .t{font-size:13.8px;color:var(--leise);line-height:1.5;margin-top:9px;}
+
+/* Begriffe */
+.bg{background:var(--filz2);border:1px solid var(--linie);border-radius:18px;margin-bottom:10px;overflow:hidden;}
+.bg summary{cursor:pointer;padding:16px 20px;display:flex;gap:13px;align-items:baseline;flex-wrap:wrap;}
+.bg summary::-webkit-details-marker{display:none;}
+.bg .w{font-family:var(--serif);font-size:19px;color:var(--gold2);}
+.bg .kurz{font-size:14px;color:var(--leise);}
+.bg .in{padding:0 20px 20px;font-size:15px;line-height:1.65;}
+.bg .in p{margin:0 0 10px;}
+.bg .bsp{background:rgba(0,0,0,.2);border-radius:12px;padding:13px 15px;font-size:14.3px;
+ line-height:1.6;color:#D6D0C2;margin-top:10px;}
+.bg .bsp b{color:var(--gold2);}
+
+/* Tells */
+.tl{display:grid;grid-template-columns:52px 1fr;gap:15px;background:var(--filz2);
+ border:1px solid var(--linie);border-radius:17px;padding:17px 19px;margin-bottom:10px;align-items:start;}
+.tl .ic{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.tl .ic.stark{background:rgba(111,168,106,.18);color:var(--gruen);}
+.tl .ic.schwach{background:rgba(194,65,58,.18);color:#E08A82;}
+.tl .ic.neutral{background:rgba(78,134,168,.16);color:#8FBBD4;}
+.tl b{display:block;font-family:var(--serif);font-size:18px;font-weight:400;color:var(--gold2);margin-bottom:4px;}
+.tl p{margin:0 0 7px;font-size:14.6px;line-height:1.6;color:#D6D0C2;}
+.tl .deut{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--gold);}
+
+/* Tabelle */
+.tab{width:100%;border-collapse:collapse;font-size:14.5px;margin:14px 0;}
+.tab th,.tab td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--linie);vertical-align:top;}
+.tab th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--gold);font-weight:400;}
+.tab td:first-child{font-family:var(--mono);color:var(--gold2);white-space:nowrap;}
+.tab tr:last-child td{border-bottom:none;}
+
+.notiz{background:rgba(78,134,168,.1);border-left:3px solid var(--blau);border-radius:14px;
+ padding:16px 19px;margin:18px 0;font-size:15px;line-height:1.65;}
+.notiz b{color:var(--gold2);}
+.warnung{background:rgba(194,65,58,.12);border-left:3px solid var(--rot);border-radius:14px;
+ padding:16px 19px;margin:18px 0;font-size:15px;line-height:1.65;}
+.warnung b{color:#F0A89F;}
+
+/* Kacheln Startseite */
+.kacheln{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:22px 0;}
+.kc{display:block;background:var(--filz2);border:1px solid var(--linie);border-radius:20px;
+ padding:22px 24px;text-decoration:none;color:var(--creme);transition:border-color .15s,transform .15s;}
+.kc:hover{border-color:var(--gold);transform:translateY(-2px);}
+.kc .ic{font-size:26px;margin-bottom:10px;}
+.kc b{display:block;font-family:var(--serif);font-size:21px;font-weight:400;color:var(--gold2);margin-bottom:5px;}
+.kc p{margin:0;font-size:14.2px;color:var(--leise);line-height:1.55;}
+
+.weiter{display:flex;gap:11px;margin-top:44px;flex-wrap:wrap;}
+.weiter a{flex:1;min-width:200px;background:var(--filz2);border:1px solid var(--linie);border-radius:16px;
+ padding:15px 18px;text-decoration:none;color:var(--creme);}
+.weiter a:hover{border-color:var(--gold);}
+.weiter .lbl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.11em;
+ text-transform:uppercase;color:var(--gold);margin-bottom:3px;}
+.weiter .ttl{font-family:var(--serif);font-size:17px;}
+.foot{margin-top:50px;padding-top:22px;border-top:1px solid var(--linie);
+ font-size:13px;color:var(--leise);line-height:1.65;}
+</style></head><body>
+<div class="bar"><div class="bar-in">
+<a class="logo" href="index.html">♠<span>♥</span> Poker</a>
+<nav class="nav"><a href="index.html">Start</a><a href="haende.html">Hände</a><a href="ranges.html">Ranges</a><a href="rechnen.html" class="ist">Rechnen</a><a href="begriffe.html">Begriffe</a><a href="tells.html">Tells</a><a href="ich.html">Mein Spiel</a></nav>
+</div></div>
+<div class="wrap">
+
+<style>
+.rechner{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:18px 0;}
+@media(max-width:700px){.rechner{grid-template-columns:1fr;}}
+.rc{background:var(--filz2);border:1px solid var(--linie);border-radius:18px;padding:20px 22px;}
+.rc label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+ color:var(--gold);margin:12px 0 6px;}
+.rc input{width:100%;padding:12px 14px;border:1px solid var(--linie);border-radius:12px;
+ background:rgba(0,0,0,.25);color:var(--creme);font-family:var(--mono);font-size:17px;}
+.rc input:focus{outline:none;border-color:var(--gold);}
+.erg{margin-top:16px;background:rgba(217,180,91,.1);border-radius:13px;padding:15px 17px;}
+.erg .zahl{font-family:var(--serif);font-size:34px;color:var(--gold2);line-height:1;}
+.erg .txt{font-size:14px;color:#D6D0C2;line-height:1.55;margin-top:8px;}
+.balken{height:26px;background:rgba(0,0,0,.3);border-radius:8px;overflow:hidden;display:flex;margin-top:12px;}
+.balken i{display:block;height:100%;}
+.balken .brauch{background:var(--rot);}
+.balken .hast{background:var(--gruen);}
+.urteil{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:10px;}
+.urteil.ja{color:var(--gruen);} .urteil.nein{color:var(--rot);}
+</style>
+
+<div class="kopf">
+  <div class="eyebrow">Die Mathematik</div>
+  <h1>Zwei Zahlen, <em>mehr nicht.</em></h1>
+  <p class="lede">Poker-Mathematik klingt nach viel und ist im Kern eine einzige Frage: Was kostet mich das Mitgehen, und wie oft gewinne ich danach? Wenn das zweite größer ist als das erste, gehst du mit.</p>
+</div>
+
+<div class="rechner">
+  <div class="rc">
+    <h3>Die Lage eingeben</h3>
+    <label for="pot">Wie viel liegt im Pot?</label>
+    <input id="pot" type="number" value="100" min="1">
+    <label for="einsatz">Was müsstest du zahlen?</label>
+    <input id="einsatz" type="number" value="50" min="1">
+    <label for="outs">Wie viele Outs hast du?</label>
+    <input id="outs" type="number" value="9" min="1" max="21">
+    <label for="karten">Wie viele Karten kommen noch?</label>
+    <input id="karten" type="number" value="2" min="1" max="2">
+    <p style="font-size:13.5px;color:var(--leise);margin:12px 0 0;line-height:1.55;">
+    Nach dem Flop kommen noch zwei, nach dem Turn noch eine.</p>
+  </div>
+  <div class="rc">
+    <h3>Das Ergebnis</h3>
+    <div class="erg" id="erg"></div>
+  </div>
+</div>
+
+<h2>Outs zählen — die Tabelle zum Merken</h2>
+<p class="sub">Outs sind die Karten, die dir die beste Hand geben. Drei davon reichen für den Anfang: Flushdraw ist 9, offene Straße ist 8, Gutshot ist 4.</p>
+<table class="tab">
+<tr><th>Was du hast</th><th>Outs</th><th>Bis zum River</th><th>Nur noch eine Karte</th></tr>
+<tr><td>Flushdraw</td><td>9</td><td>etwa 35%</td><td>etwa 19%</td></tr>
+<tr><td>Offene Straße</td><td>8</td><td>etwa 32%</td><td>etwa 17%</td></tr>
+<tr><td>Gutshot</td><td>4</td><td>etwa 17%</td><td>etwa 9%</td></tr>
+<tr><td>Zwei Overcards</td><td>6</td><td>etwa 24%</td><td>etwa 13%</td></tr>
+<tr><td>Flush plus Straße</td><td>15</td><td>etwa 54%</td><td>etwa 32%</td></tr>
+<tr><td>Ein Paar zum Drilling</td><td>2</td><td>etwa 8%</td><td>etwa 4%</td></tr>
+</table>
+
+<div class="notiz"><b>Die Regel von 2 und 4:</b> Outs mal 4, wenn noch zwei Karten kommen. Outs mal 2, wenn noch eine kommt. Fertig. Die Zahlen sind minimal zu hoch, aber am Tisch völlig ausreichend — und in zwei Sekunden im Kopf.</div>
+
+<h2>Die Standardpreise auswendig</h2>
+<p class="sub">Wenn du diese vier kennst, musst du fast nie rechnen — die meisten Einsätze sind einer davon.</p>
+<table class="tab">
+<tr><th>Der Einsatz ist</th><th>Du brauchst</th><th>Also reicht</th></tr>
+<tr><td>Ein Drittel des Pots</td><td>20%</td><td>schon ein Gutshot mit 4 Outs, wenn noch zwei Karten kommen</td></tr>
+<tr><td>Halber Pot</td><td>25%</td><td>ein Gutshot ist grenzwertig, eine Straße oder ein Flush klar</td></tr>
+<tr><td>Zwei Drittel</td><td>29%</td><td>Flushdraw ja, Gutshot nein</td></tr>
+<tr><td>Voller Pot</td><td>33%</td><td>nur noch mit starken Draws oder wenn du glaubst, du liegst vorn</td></tr>
+</table>
+
+<div class="notiz"><b>Und der Punkt, den Tabellen nicht zeigen:</b> Wenn du triffst, gewinnst du oft noch <b>zusätzliches</b> Geld — der andere zahlt ja weiter. Das nennt man <b>implizite Odds</b>, und es macht knappe Entscheidungen häufig doch lohnend. Umgekehrt gilt: Gegen jemanden, der bei einer dritten Farbe sofort aufhört zu setzen, gibt es dieses Zusatzgeld nicht.</div>
+
+<div class="weiter"><a href="ranges.html"><span class="lbl">Zurück</span><span class="ttl">Welche Hände du spielst</span></a><a href="begriffe.html"><span class="lbl">Weiter</span><span class="ttl">Die Begriffe</span></a></div>
+<div class="foot">Poker-Handbuch &middot; Strategie ist Standardwissen, die Selbstf&uuml;hrung ist pers&ouml;nlich.<br>
+Astrologie beeinflusst keine Karten. Spiel nur mit Geld, dessen Verlust dich nicht trifft.</div>
+</div>
+<script>
+
+function zahl(id){ return +document.getElementById(id).value||0; }
+function rechne(){
+  var pot=zahl('pot'), ein=zahl('einsatz'), outs=zahl('outs'), karten=+document.getElementById('karten').value;
+  var brauch = (pot+ein>0) ? ein/(pot+ein+ein)*100 : 0;
+  var hast = Math.min(outs*(karten===2?4:2), 95);
+  document.getElementById('erg').innerHTML=
+    '<div class="zahl">'+brauch.toFixed(0)+'% <span style="font-size:18px;color:var(--leise)">brauchst du</span></div>'+
+    '<div class="balken"><i class="brauch" style="width:'+brauch.toFixed(1)+'%"></i></div>'+
+    '<div class="txt">Der Pot wäre nach deinem Mitgehen <b>'+(pot+ein+ein)+'</b> groß, und du zahlst <b>'+ein+'</b> davon. '+
+    'So oft musst du am Ende gewinnen, damit sich das lohnt.</div>'+
+    '<div class="zahl" style="margin-top:16px;">'+hast+'% <span style="font-size:18px;color:var(--leise)">hast du</span></div>'+
+    '<div class="balken"><i class="hast" style="width:'+hast+'%"></i></div>'+
+    '<div class="txt">'+outs+' Outs bei '+(karten===2?'zwei noch kommenden Karten':'einer noch kommenden Karte')+'. '+
+    'Gerechnet mit der Regel von '+(karten===2?'4':'2')+'.</div>'+
+    '<div class="urteil '+(hast>=brauch?'ja':'nein')+'">'+
+    (hast>=brauch? '→ Mitgehen lohnt sich' : '→ Auf Dauer verlierst du damit')+'</div>';
+}
+['pot','einsatz','outs','karten'].forEach(function(i){
+  document.getElementById(i).addEventListener('input',rechne);
+  document.getElementById(i).addEventListener('change',rechne);
+});
+rechne();
+
+</script>
+</body></html>
